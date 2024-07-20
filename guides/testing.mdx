@@ -1,0 +1,35 @@
+---
+title: 'Testing'
+description: 'Learn how to test the Igbo API'
+icon: 'code'
+---
+
+## Frontend
+
+Frontend tests focus specifically on the Igbo API homepage using Cypress. First, run:
+
+```bash
+npm run build
+```
+
+To watch frontend tests, run:
+
+```bash
+npm run jest:frontend
+```
+
+## Backend
+
+Backend tests use both locally stored MongoDB and JSON data.
+
+In one terminal, star the local database:
+
+```bash
+npm run start:database
+```
+
+In another terminal, run the backend tests:
+
+```bash
+npm run jest:backend
+```

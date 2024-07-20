@@ -1,0 +1,55 @@
+---
+title: 'Migrating the Database'
+description: 'Learn how to migrate your local MongoDB database'
+icon: 'database'
+---
+
+<Info>
+  We use [migrate-mongo](https://github.com/seppevs/migrate-mongo) to handle our
+  MongoDB database migrations.
+</Info>
+
+The database has gone through a number of migrations since the beginning of this project. To ensure that local testing data is the same
+shape as the data in the production MongoDB database, run all MongoDB migration scripts with the following command:
+
+```bash
+npm run migrate-up
+```
+
+## Generate a New Migration script
+
+Globally install `migrate-mongo` to be able to generate migration scripts.
+
+```bash
+npm i -g migrate-mongo
+```
+
+```bash
+migrate-mongo create <name_of_migration>
+```
+
+<Tip>
+Replace `<name_of_migration>` with the name of your own migration. Remember to use snake case.
+</Tip>
+
+## Structure of MongoDB Migration
+
+Each migration script must include an `up` and `down` function that are included in the default exports.
+
+```js migrations/20201106045436-name-of-migration.js
+module.exports = {
+  async up(db) {
+    // logic to update all relevant collections
+  },
+
+  async down(db) {
+    // logic to revert updates for all relevant collections
+  },
+};
+```
+
+<Tip>
+  Here are all the [examples of database
+  migrations](https://github.com/nkowaokwu/igbo_api/tree/master/migrations) for
+  the Igbo API.
+</Tip>
