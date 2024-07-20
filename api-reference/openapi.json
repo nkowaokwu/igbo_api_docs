@@ -196,7 +196,7 @@
     },
     "/examples/{id}": {
       "get": {
-        "description": "Returns one requested word from the database",
+        "description": "Returns one requested example from the database",
         "parameters": [],
         "responses": {
           "200": {
@@ -205,7 +205,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Word"
+                  "$ref": "#/components/schemas/Example"
                 }
               }
             }
