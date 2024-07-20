@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "http://igboapi.com/api/v1"
     }
   ],
   "security": [
@@ -19,29 +19,69 @@
     }
   ],
   "paths": {
-    "/plants": {
+    "/words": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "Returns requested words from the database",
         "parameters": [
           {
-            "name": "limit",
+            "name": "keyword",
             "in": "query",
-            "description": "The maximum number of results to return",
+            "description": "Keyword for querying words",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page of results, the default max number of words on a page is 10",
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "description": "A selected range of words to return, the max range is 25",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "strict",
+            "in": "query",
+            "description": "Searches strictly for words matching with provided diacritics",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dialects",
+            "in": "query",
+            "description": "Includes dialect information in each document",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "examples",
+            "in": "query",
+            "description": "Includes examples associated with each document",
+            "schema": {
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Words response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Plant"
+                    "$ref": "#/components/schemas/Word"
                   }
                 }
               }
@@ -58,33 +98,26 @@
             }
           }
         }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
+      }
+    },
+    "/words/{id}": {
+      "get": {
+        "description": "Returns one requested word from the database",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Words response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "type": "object",
+                  "$ref": "#/components/schemas/Word"
                 }
               }
             }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Unexpected error",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,28 +129,118 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/examples": {
+      "get": {
+        "description": "Returns requested examples from the database",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
+            "name": "keyword",
+            "in": "query",
+            "description": "Keyword for querying words",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page of results, the default max number of words on a page is 10",
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
+            }
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "description": "A selected range of words to return, the max range is 25",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "Style for requested example sentences",
+            "schema": {
+              "type": "string"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
+          "200": {
+            "description": "Words response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Example"
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/examples/{id}": {
+      "get": {
+        "description": "Returns one requested word from the database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Example response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Word"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nsibidi/{id}": {
+      "get": {
+        "description": "Returns one requested Nsịbịdị from the database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Nsịbịdị response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Nsibidi"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
             "content": {
               "application/json": {
                 "schema": {
@@ -132,47 +255,183 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
+      "Word": {
+        "required": ["id", "word", "wordClass", "pronunciation", "definitions"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Id of word",
+            "type": "string"
+          },
+          "word": {
+            "description": "The headword",
+            "type": "string"
+          },
+          "wordClass": {
+            "description": "The part of speech",
+            "type": "string"
+          },
+          "pronunciation": {
+            "description": "The audio pronunciation of the word",
+            "type": "string"
+          },
+          "definitions": {
+            "description": "The English definitions",
+            "type": "array",
+            "items": "string"
+          },
+          "attributes": {
+            "description": "The word attributes",
+            "type": "object"
+          },
+          "relatedTerms": {
+            "description": "Ids of related word documents",
+            "type": "string"
+          },
+          "nsibidi": {
+            "description": "Nsịbịdị representation of the text",
+            "type": "string"
+          },
+          "dialects": {
+            "description": "Dialectal variations of the word",
+            "type": "object"
+          },
+          "variations": {
+            "description": "Spelling variations of the headword",
+            "type": "array",
+            "items": "string"
+          }
+        }
+      },
+      "Word_Attributes": {
         "required": [
-          "name"
+          "isStandardIgbo",
+          "isAccented",
+          "isSlang",
+          "isConstructedTerm",
+          "isBorrowedTerm",
+          "isStem",
+          "isCommon"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "isStandardIgbo": {
+            "description": "Is the word in Standard Igbo",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "isAccented": {
+            "description": "Is the word fully accented with diacritic marks",
+            "type": "string"
+          },
+          "isSlang": {
+            "description": "Is the word slang",
+            "type": "string"
+          },
+          "isConstructedTerm": {
+            "description": "Is the word newly conceptually created",
+            "type": "string"
+          },
+          "isBorrowedTerm": {
+            "description": "Is the word a borrowed word from another language",
+            "type": "string"
+          },
+          "isStem": {
+            "description": "Is the word a stem",
+            "type": "string"
+          },
+          "isCommon": {
+            "description": "Is the word common in daily usage",
             "type": "string"
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
+      "Example": {
+        "required": [
+          "id",
+          "igbo",
+          "english",
+          "pronunciation",
+          "meaning",
+          "style"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Id of word",
+            "type": "string"
           },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+          "igbo": {
+            "description": "The Igbo translation of the sentence",
+            "type": "string"
+          },
+          "english": {
+            "description": "The English translation of the sentence",
+            "type": "string"
+          },
+          "pronunciation": {
+            "description": "The audio pronunciation of the sentence",
+            "type": "string"
+          },
+          "meaning": {
+            "description": "The conceptual meaning of the sentence in English",
+            "type": "string"
+          },
+          "style": {
+            "description": "The style of the sentence",
+            "type": "object"
+          },
+          "associatedWords": {
+            "description": "Ids of words present in the sentence",
+            "type": "array",
+            "items": "string"
+          },
+          "nsibidi": {
+            "description": "Nsịbịdị representation of the text",
+            "type": "string"
           }
-        ]
+        }
+      },
+      "Nsibidi": {
+        "required": [
+          "id",
+          "nsibidi",
+          "definitions",
+          "wordClass",
+          "pronunciation",
+          "radicals"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Id of word",
+            "type": "string"
+          },
+          "nsibidi": {
+            "description": "The Nsịbịdị character the sentence",
+            "type": "string"
+          },
+          "definitions": {
+            "description": "Definitions of the character",
+            "type": "array",
+            "items": "string"
+          },
+          "wordClass": {
+            "description": "The part of speech",
+            "type": "string"
+          },
+          "pronunciation": {
+            "description": "Text representation of character pronunciation",
+            "type": "string"
+          },
+          "radicals": {
+            "description": "Ids to other Nsịbịdị character that are radicals",
+            "type": "array",
+            "items": "string"
+          }
+        }
       },
       "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
+        "required": ["error", "message"],
         "type": "object",
         "properties": {
           "error": {

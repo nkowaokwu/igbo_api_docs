@@ -51,6 +51,7 @@
       "group": "Guides",
       "pages": [
         "guides/seeding",
+        "guides/firebase",
         "guides/testing",
         "guides/docker",
         "guides/migrate"
@@ -59,9 +60,9 @@
     {
       "group": "Essentials",
       "pages": [
-        "essentials/code",
-        "essentials/settings",
-        "essentials/navigation"
+        "essentials/glossary",
+        "essentials/faq",
+        "essentials/contributing"
       ]
     },
     {
