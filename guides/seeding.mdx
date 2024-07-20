@@ -1,0 +1,61 @@
+---
+title: 'Seeding the Database'
+description: 'Populate your local database'
+icon: 'database'
+---
+
+## Step 1: Build a Dictionary
+
+The following command places the JSON dictionaries in the `build/` directory:
+
+```bash
+npm run build:dictionaries
+```
+
+<Tip>
+  Here's an example JSON dictionary file:
+  [ig-en/ig-en_expanded.json](https://github.com/nkowaokwu/igbo_api/blob/master/src/dictionaries/ig-en/ig-en_expanded.json)
+</Tip>
+
+## Step 2: Populate the MongoDB Database
+
+Now that the data has been parsed, it needs to be used to populate, or seed, the MongoDB database.
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Then make a `POST` request to the following route:
+
+```bash
+http://localhost:8080/api/v1/test/populate // POST
+```
+
+<Check>
+  After about 20 seconds, if you see the `✅ Seeding successful.` message in
+  your terminal, then you have successfully populated your database.
+</Check>
+
+## Verify database seeding was successful
+
+Install one of the options on your machine to view the seeded data
+
+**Option 1:** Download MongoDB Compass
+
+```
+https://docs.mongodb.com/manual/administration/install-community/
+```
+
+**Option 2:** Install MongoDB VSCode extension
+
+```
+https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode
+```
+
+Connect to your local mongodb cluster using this connection:
+
+```
+mongodb://127.0.0.1:27017/igbo_api
+```

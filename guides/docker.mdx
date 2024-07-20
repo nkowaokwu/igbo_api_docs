@@ -1,0 +1,36 @@
+---
+title: 'Start with Docker'
+description: 'Start the Igbo API with Docker'
+icon: 'docker'
+---
+
+<Tip>
+  This is an alternative approach to locally running the Igbo API. If you want
+  to run the Igbo API on your machine, navigate to the
+  [Development](/development) section
+</Tip>
+
+## Project Start-Up Alternative: Docker
+
+### Step 1: Install Docker
+
+If you don't have Docker on your machine, you can install it [here](https://docker.com)
+
+### Step 2: Download the Igbo API Docker Image
+
+Download the [Igbo API Docker image](https://hub.docker.com/repository/docker/ijemmao/igbo_api_server/general)
+
+### Step 3: Run the image
+
+Run the following command:
+
+```bash
+npm run start:docker
+```
+
+<Check>The Igbo API will be running at http://localhost:8080</Check>
+
+<Warning>
+  Ensure you are not running the Igbo API with `npm` while running with Docker.
+  The ports will clash if both are running concurrently.
+</Warning>

@@ -3,6 +3,11 @@ title: 'Development'
 description: 'Learn how to start the Igbo API locally'
 ---
 
+<Tip>
+  If you don't want to install local dependencies on your machine, please
+  navigate to the [Start with Docker](/guides/docker) to get started.
+</Tip>
+
 ## Setup your development
 
 <Info>
@@ -30,23 +35,66 @@ description: 'Learn how to start the Igbo API locally'
 
   </Info>
 
-### Step 1. Clone Igbo API repo:
+### Step 1. Clone Igbo API repo
 
 ```bash
 git clone https://github.com/nkowaokwu/igbo_api.git
 ```
 
-### Step 2. Install dev dependencies:
+### Step 2. Install dev dependencies
 
 ```bash
 cd igbo_api/
 npm install
 ```
 
-### Step 3: Build the project:
+### Step 3: Build the project
 
 ```bash
 npm run build
 ```
 
-The Igbo API will be running at: [http://localhost:8080](http://localhost:8080) 🎉
+### Step 4: Run the project
+
+```bash
+npm run dev
+```
+
+<Check>
+  The Igbo API will be running at [http://localhost:8080](http://localhost:8080)
+</Check>
+
+<Check>
+  The Igbo API website will be running at
+  [http://localhost:3000](http://localhost:3000)
+</Check>
+
+## Enable Firebase Authentication
+
+This project uses Firebase and requires you to create your own free Firebase project.
+
+Please follow the [Firebase Configuration Guide here](https://github.com/nkowaokwu/igbo_api/.github/FIREBASE_CONFIG.md)
+
+### Optional: Development with Replica Sets and Redis
+
+<Warning>
+  Running replica sets locally is machine-intensive and should only be ran for
+  testing or specific-feature development purposes.
+</Warning>
+
+To start the dev API server while running [MongoDB Replica sets](https://docs.mongodb.com/manual/replication/) and the [Redis cache](https://redis.io/), run:
+
+```bash
+npm run dev:full:database
+```
+
+To start a Redis server, run:
+
+```bash
+redis-server
+```
+
+<Info>
+  You must have [Redis](https://github.com/redis/node-redis) installed on your
+  machine in order to run the server.
+</Info>

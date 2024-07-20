@@ -54,6 +54,15 @@
       "pages": ["introduction", "quickstart", "development"]
     },
     {
+      "group": "Guides",
+      "pages": [
+        "guides/seeding",
+        "guides/testing",
+        "guides/docker",
+        "guides/migrate"
+      ]
+    },
+    {
       "group": "Essentials",
       "pages": [
         "essentials/code",
