@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "The Igbo API",
+    "description": "An API that enables developers to fetch Igbo word data",
     "license": {
       "name": "MIT"
     },
@@ -15,7 +15,7 @@
   ],
   "security": [
     {
-      "bearerAuth": []
+      "ApiKeyAuth": []
     }
   ],
   "paths": {
@@ -29,7 +29,8 @@
             "description": "Keyword for querying words",
             "schema": {
               "type": "string"
-            }
+            },
+            "required": true
           },
           {
             "name": "page",
@@ -75,7 +76,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Words response",
+            "description": "Word response",
             "content": {
               "application/json": {
                 "schema": {
@@ -139,7 +140,8 @@
             "description": "Keyword for querying words",
             "schema": {
               "type": "string"
-            }
+            },
+            "required": true
           },
           {
             "name": "page",
@@ -256,7 +258,15 @@
   "components": {
     "schemas": {
       "Word": {
-        "required": ["id", "word", "wordClass", "pronunciation", "definitions"],
+        "required": [
+          "id",
+          "word",
+          "wordClass",
+          "pronunciation",
+          "definitions",
+          "attributes",
+          "nsibidi"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -278,11 +288,52 @@
           "definitions": {
             "description": "The English definitions",
             "type": "array",
-            "items": "string"
+            "items": {
+              "type": "string"
+            }
           },
           "attributes": {
             "description": "The word attributes",
-            "type": "object"
+            "type": "object",
+            "required": [
+              "isStandardIgbo",
+              "isAccented",
+              "isSlang",
+              "isConstructedTerm",
+              "isBorrowedTerm",
+              "isStem",
+              "isCommon"
+            ],
+            "properties": {
+              "isStandardIgbo": {
+                "description": "Is the word in Standard Igbo",
+                "type": "boolean"
+              },
+              "isAccented": {
+                "description": "Is the word fully accented with diacritic marks",
+                "type": "boolean"
+              },
+              "isSlang": {
+                "description": "Is the word slang",
+                "type": "boolean"
+              },
+              "isConstructedTerm": {
+                "description": "Is the word newly conceptually created",
+                "type": "boolean"
+              },
+              "isBorrowedTerm": {
+                "description": "Is the word a borrowed word from another language",
+                "type": "boolean"
+              },
+              "isStem": {
+                "description": "Is the word a stem",
+                "type": "boolean"
+              },
+              "isCommon": {
+                "description": "Is the word common in daily usage",
+                "type": "boolean"
+              }
+            }
           },
           "relatedTerms": {
             "description": "Ids of related word documents",
@@ -294,54 +345,48 @@
           },
           "dialects": {
             "description": "Dialectal variations of the word",
-            "type": "object"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dialect"
+            }
           },
           "variations": {
             "description": "Spelling variations of the headword",
             "type": "array",
-            "items": "string"
+            "items": {
+              "type": "string"
+            }
+          },
+          "examples": {
+            "description": "Associated example Igbo sentences",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Example"
+            }
           }
         }
       },
-      "Word_Attributes": {
-        "required": [
-          "isStandardIgbo",
-          "isAccented",
-          "isSlang",
-          "isConstructedTerm",
-          "isBorrowedTerm",
-          "isStem",
-          "isCommon"
-        ],
+      "Dialect": {
         "type": "object",
+        "required": ["word", "dialects", "pronunciation"],
         "properties": {
-          "isStandardIgbo": {
-            "description": "Is the word in Standard Igbo",
+          "word": {
             "type": "string"
           },
-          "isAccented": {
-            "description": "Is the word fully accented with diacritic marks",
+          "dialects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pronunciation": {
             "type": "string"
           },
-          "isSlang": {
-            "description": "Is the word slang",
-            "type": "string"
-          },
-          "isConstructedTerm": {
-            "description": "Is the word newly conceptually created",
-            "type": "string"
-          },
-          "isBorrowedTerm": {
-            "description": "Is the word a borrowed word from another language",
-            "type": "string"
-          },
-          "isStem": {
-            "description": "Is the word a stem",
-            "type": "string"
-          },
-          "isCommon": {
-            "description": "Is the word common in daily usage",
-            "type": "string"
+          "variations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -383,7 +428,9 @@
           "associatedWords": {
             "description": "Ids of words present in the sentence",
             "type": "array",
-            "items": "string"
+            "items": {
+              "type": "string"
+            }
           },
           "nsibidi": {
             "description": "Nsịbịdị representation of the text",
@@ -413,7 +460,14 @@
           "definitions": {
             "description": "Definitions of the character",
             "type": "array",
-            "items": "string"
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "wordClass": {
             "description": "The part of speech",
@@ -426,7 +480,9 @@
           "radicals": {
             "description": "Ids to other Nsịbịdị character that are radicals",
             "type": "array",
-            "items": "string"
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -445,9 +501,10 @@
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
       }
     }
   }
