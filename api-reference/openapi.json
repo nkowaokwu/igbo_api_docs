@@ -29,7 +29,8 @@
             "description": "Keyword for querying words",
             "schema": {
               "type": "string"
-            }
+            },
+            "required": true
           },
           {
             "name": "page",
@@ -139,7 +140,8 @@
             "description": "Keyword for querying words",
             "schema": {
               "type": "string"
-            }
+            },
+            "required": true
           },
           {
             "name": "page",
@@ -292,7 +294,46 @@
           },
           "attributes": {
             "description": "The word attributes",
-            "type": "object"
+            "type": "object",
+            "required": [
+              "isStandardIgbo",
+              "isAccented",
+              "isSlang",
+              "isConstructedTerm",
+              "isBorrowedTerm",
+              "isStem",
+              "isCommon"
+            ],
+            "properties": {
+              "isStandardIgbo": {
+                "description": "Is the word in Standard Igbo",
+                "type": "boolean"
+              },
+              "isAccented": {
+                "description": "Is the word fully accented with diacritic marks",
+                "type": "boolean"
+              },
+              "isSlang": {
+                "description": "Is the word slang",
+                "type": "boolean"
+              },
+              "isConstructedTerm": {
+                "description": "Is the word newly conceptually created",
+                "type": "boolean"
+              },
+              "isBorrowedTerm": {
+                "description": "Is the word a borrowed word from another language",
+                "type": "boolean"
+              },
+              "isStem": {
+                "description": "Is the word a stem",
+                "type": "boolean"
+              },
+              "isCommon": {
+                "description": "Is the word common in daily usage",
+                "type": "boolean"
+              }
+            }
           },
           "relatedTerms": {
             "description": "Ids of related word documents",
@@ -304,7 +345,10 @@
           },
           "dialects": {
             "description": "Dialectal variations of the word",
-            "type": "object"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dialect"
+            }
           },
           "variations": {
             "description": "Spelling variations of the headword",
@@ -318,6 +362,30 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Example"
+            }
+          }
+        }
+      },
+      "Dialect": {
+        "type": "object",
+        "required": ["word", "dialects", "pronunciation"],
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "dialects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pronunciation": {
+            "type": "string"
+          },
+          "variations": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }
@@ -393,7 +461,12 @@
             "description": "Definitions of the character",
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              }
             }
           },
           "wordClass": {
