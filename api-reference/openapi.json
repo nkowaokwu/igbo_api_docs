@@ -282,7 +282,7 @@
             "type": "string"
           },
           "pronunciation": {
-            "description": "The audio pronunciation of the word",
+            "description": "Audio URI of word recording",
             "type": "string"
           },
           "definitions": {
@@ -371,18 +371,22 @@
         "required": ["word", "dialects", "pronunciation"],
         "properties": {
           "word": {
+            "description": "Headword for the dialectal variation",
             "type": "string"
           },
           "dialects": {
+            "description": "Enums of dialect regions",
             "type": "array",
             "items": {
               "type": "string"
             }
           },
           "pronunciation": {
+            "description": "Audio URI of the dialectal variation",
             "type": "string"
           },
           "variations": {
+            "description": "Spelling variations of the dialectal headword",
             "type": "array",
             "items": {
               "type": "string"
@@ -414,7 +418,7 @@
             "type": "string"
           },
           "pronunciation": {
-            "description": "The audio pronunciation of the sentence",
+            "description": "Audio URI of sentence recording",
             "type": "string"
           },
           "meaning": {
