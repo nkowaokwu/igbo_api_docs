@@ -44,8 +44,16 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "group": "",
+      "pages": ["introduction"]
+    },
+    {
+      "group": "Igbo API",
+      "pages": [
+        "igbo_api/overview",
+        "igbo_api/quickstart",
+        "igbo_api/development"
+      ]
     },
     {
       "group": "Guides",
@@ -61,6 +69,7 @@
       "group": "Essentials",
       "pages": [
         "essentials/glossary",
+        "essentials/dialects",
         "essentials/faq",
         "essentials/contributing"
       ]
