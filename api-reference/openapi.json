@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "The Igbo API",
-    "description": "An API that enables developers to fetch Igbo word data",
+    "description": "An API that enables developers to interact with African language models and fetch Igbo word data",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://igboapi.com/api/v1"
+      "url": "http://igboapi.com/api/v2"
     }
   ],
   "security": [
@@ -19,6 +19,66 @@
     }
   ],
   "paths": {
+    "/speech-to-text": {
+      "post": {
+        "description": "Transcribe Igbo audio to text. Returns a string of text representing the audio passed into the endpoint.",
+        "requestBody": {
+          "description": "The audio URL to be transcribed is sent in the request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/TranscriptionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The transcribed Igbo text of the given input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/TranscriptionOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/translate": {
+      "post": {
+        "description": "Translate text from one language to another. Returns a string of text representing the translation of a given input.",
+        "requestBody": {
+          "description": "The inputs to the translation model describe what language you're translating from and to",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/TranslationInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The translated text of the given input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/TranslationOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/words": {
       "get": {
         "description": "Returns requested words from the database",
@@ -487,6 +547,50 @@
             "items": {
               "type": "string"
             }
+          }
+        }
+      },
+      "TranscriptionInput": {
+        "required": ["audioUrl"],
+        "type": "object",
+        "properties": {
+          "audioUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "TranscriptionOutput": {
+        "required": ["transcription"],
+        "type": "object",
+        "properties": {
+          "transcription": {
+            "type": "string"
+          }
+        }
+      },
+      "TranslationInput": {
+        "required": ["text", "sourceLanguageCode", "destinationLanguageCode"],
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "sourceLanguageCode": {
+            "type": "string",
+            "enum": ["eng", "ibo"]
+          },
+          "destinationLanguageCode": {
+            "type": "string",
+            "enum": ["eng", "ibo"]
+          }
+        }
+      },
+      "TranslationOutput": {
+        "required": ["translation"],
+        "type": "object",
+        "properties": {
+          "translation": {
+            "type": "string"
           }
         }
       },
