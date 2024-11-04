@@ -80,6 +80,14 @@
       "pages": ["api-reference/introduction"]
     },
     {
+      "group": "Speech to Text",
+      "pages": ["api-reference/endpoint/speech-to-text/transcribe"]
+    },
+    {
+      "group": "Translation",
+      "pages": ["api-reference/endpoint/machine-translation/translate"]
+    },
+    {
       "group": "Words",
       "pages": [
         "api-reference/endpoint/words/get_words",
