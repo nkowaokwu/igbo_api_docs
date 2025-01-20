@@ -132,6 +132,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "wordClasses",
+            "in": "query",
+            "description": "Comma-separated string of word classes that filters words that match the word class (a.k.a. part of speech)",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -164,7 +172,32 @@
     "/words/{id}": {
       "get": {
         "description": "Returns one requested word from the database",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "dialects",
+            "in": "query",
+            "description": "Includes dialect information in each document",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "examples",
+            "in": "query",
+            "description": "Includes examples associated with each document",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "wordClasses",
+            "in": "query",
+            "description": "Comma-separated string of word classes that filters words that match the word class (a.k.a. part of speech)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Words response",
