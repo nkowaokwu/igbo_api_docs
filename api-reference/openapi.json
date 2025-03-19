@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://igboapi.com/api/v2"
+      "url": "https://igboapi.com/api/v2"
     }
   ],
   "security": [
